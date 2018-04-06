@@ -25,25 +25,24 @@ function isPalindrome(textToCheck) {
  * Space: Constant
  * @return String with the longest Palindrome found.
  */
-function longestPalindromeInSubtring(textToProcess) {
+function longestPalindromeInSubString(textToProcess) {
   let result = '';
   if (textToProcess) {
-    let deltaCursor = '';
+    const textLetters = textToProcess.split('');
+    let deltaCursor = textLetters[0];
     let alphaCursorIndex = 0;
     let isPalindromeResult = false;
-    const textLetters = textToProcess.split('');
     for (let index = 0; index < textLetters.length; index++) {
       alphaCursorIndex = ((textLetters.length - 1) === index ) ? index : index + 1;
-      deltaCursor += textLetters[index] + textLetters[alphaCursorIndex];
       isPalindromeResult = isPalindrome(deltaCursor);
       if (!isPalindromeResult) {
         deltaCursor = textLetters[index] ;
       }
       if (isPalindromeResult &&
-            deltaCursor.length > result.length) {
-        console.log(deltaCursor);
+        deltaCursor.length > result.length) {
         result = deltaCursor;
       }
+      deltaCursor += textLetters[alphaCursorIndex];
     }
   }
   return result;
@@ -55,13 +54,18 @@ const sample1 = "hbbbkp asaaaas";
 const sample2 = "hggggkkple aas";
 // This sample test has the "bbbbbbbbbbbbbb" longest Palindrome in Subtring.
 const sample3 = "hbkp asasgsbbbbbbbbbbbbbb";
+// This sample test has the "bbbbbbbbbbbbbb" longest Palindrome in Subtring.
+const sample4 = "hhhhhhhhhhhbkp asasgsbbbbbb";
 // Testing results:
 console.log(
-  (longestPalindromeInSubtring(sample1) === "aaaa" ) ?
+  (longestPalindromeInSubString(sample1) === "aaaa" ) ?
   	"Test Ok.":"Test Fails.");
 console.log(
-  (longestPalindromeInSubtring(sample2) === "gggg" ) ?
+  (longestPalindromeInSubString(sample2) === "gggg" ) ?
   	"Test Ok.":"Test Fails.");
 console.log(
-  (longestPalindromeInSubtring(sample3) === "bbbbbbbbbbbbbb" ) ?
+  (longestPalindromeInSubString(sample3) === "bbbbbbbbbbbbbb" ) ?
+  	"Test Ok.":"Test Fails.");
+console.log(
+  (longestPalindromeInSubString(sample4) === "hhhhhhhhhhh" ) ?
   	"Test Ok.":"Test Fails.");
