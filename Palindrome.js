@@ -10,11 +10,11 @@
  * @return true Palindrome otherwise false
  */
 function isPalindrome(textToCheck) {
-    const n = textToCheck.length;
-    for (let i = 0; i < n/2; ++i) {
-        if (textToCheck.charAt(i) != textToCheck.charAt(n-i-1)) return false;
-    }
-    return true;
+  const n = textToCheck.length;
+  for (let i = 0; i < n / 2; ++i) {
+    if (textToCheck.charAt(i) !== textToCheck.charAt(n - i - 1)) { return false; }
+  }
+  return true;
 }
 
 /**
@@ -25,39 +25,36 @@ function isPalindrome(textToCheck) {
  * Space: Constant
  * @return String with the longest Palindrome found.
  */
-function longestPalindromeInSubtring(textToProcess){
-	let result = "";
-	if(textToProcess){
-		let deltaCursor = "";
-      	let alphaCursorIndex = 0;
-		textToProcess.split('').forEach(
-			(letter, index, array)=>{
-              	alphaCursorIndex = ((array.length - 1) === index ) ? index : index + 1;
-				deltaCursor += letter + array[alphaCursorIndex];
-				if(!isPalindrome((deltaCursor))){
-                	deltaCursor = "" ;
-                }
-              	console.log(result.length);
-              	console.log(deltaCursor.length);
-              	if(result.length < deltaCursor.length){
-                    result = deltaCursor;
-                  	deltaCursor = "";
-				}
-			}
-		);
-	}
-  	console.log(result);
-	return result;
+function longestPalindromeInSubtring(textToProcess) {
+  let result = '';
+  if (textToProcess) {
+    let deltaCursor = '';
+    let alphaCursorIndex = 0;
+    let isPalindromeResult = false;
+    const textLetters = textToProcess.split('');
+    for (let index = 0; index < textLetters.length; index++) {
+      alphaCursorIndex = ((textLetters.length - 1) === index ) ? index : index + 1;
+      deltaCursor += textLetters[index] + textLetters[alphaCursorIndex];
+      isPalindromeResult = isPalindrome(deltaCursor);
+      if (!isPalindromeResult) {
+        deltaCursor = textLetters[index] ;
+      }
+      if (isPalindromeResult &&
+            deltaCursor.length > result.length) {
+        console.log(deltaCursor);
+        result = deltaCursor;
+      }
+    }
+  }
+  return result;
 }
-
-
 
 // This sample test has the "aaaa" longest Palindrome in Subtring.
 const sample1 = "hbbbkp asaaaas";
 // This sample test has the "gggg" longest Palindrome in Subtring.
 const sample2 = "hggggkkple aas";
-// This sample test has the "bbbbbb" longest Palindrome in Subtring.
-const sample3 = "hbkp asasgsbbbbbb";
+// This sample test has the "bbbbbbbbbbbbbb" longest Palindrome in Subtring.
+const sample3 = "hbkp asasgsbbbbbbbbbbbbbb";
 // Testing results:
 console.log(
   (longestPalindromeInSubtring(sample1) === "aaaa" ) ?
@@ -66,6 +63,5 @@ console.log(
   (longestPalindromeInSubtring(sample2) === "gggg" ) ?
   	"Test Ok.":"Test Fails.");
 console.log(
-  (longestPalindromeInSubtring(sample3) === "bbbbbb" ) ?
+  (longestPalindromeInSubtring(sample3) === "bbbbbbbbbbbbbb" ) ?
   	"Test Ok.":"Test Fails.");
-
